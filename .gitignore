@@ -1,0 +1,11 @@
+__pycache__
+.vscode
+build
+dist
+prismnet.egg-info
+out
+log.txt
+events.out*
+*.pth
+.DS_Store
+*.pdf
