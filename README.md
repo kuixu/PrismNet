@@ -10,15 +10,7 @@ bioRxiv preprint: ([https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1]
 
 ![prismnet](https://github.com/kuixu/PrismNet/wiki/imgs/prismnet.png)
 
-```
-@article {Sun2020.05.05.078774,
-	title = {Predicting dynamic cellular protein-RNA interactions using deep learning and in vivo RNA structure},
-	author = {Sun, Lei and Xu, Kui and Huang, Wenze and Yang, Yucheng T. and Tang, Lei and Xiong, Tuanlin and Zhang, Qiangfeng Cliff},
-	year = {2020},
-	eprint = {https://www.biorxiv.org/content/early/2020/05/07/2020.05.05.078774.full.pdf},
-	journal = {bioRxiv}
-}
-```
+
 
 ### Table of Contents
 - [Getting started](#Getting-started)
@@ -85,4 +77,14 @@ exp/EXP_NAME/eval.sh TIA1_Hela
 ### Copyright and License
 This project is free to use for non-commercial purposes - see the [LICENSE](LICENSE) file for details.
 
+### Reference
 
+```
+@article {Sun2020.05.05.078774,
+	title = {Predicting dynamic cellular protein-RNA interactions using deep learning and in vivo RNA structure},
+	author = {Sun, Lei and Xu, Kui and Huang, Wenze and Yang, Yucheng T. and Tang, Lei and Xiong, Tuanlin and Zhang, Qiangfeng Cliff},
+	year = {2020},
+	eprint = {https://www.biorxiv.org/content/early/2020/05/07/2020.05.05.078774.full.pdf},
+	journal = {bioRxiv}
+}
+```
