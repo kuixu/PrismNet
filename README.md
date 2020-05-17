@@ -74,6 +74,12 @@ For evaluation of the models, we provide the script eval.sh. You can run it usin
 exp/EXP_NAME/eval.sh TIA1_Hela
 ```
 
+### Motif, riboSNitch and structurally variable sites analysis
+
+Scripts of the analysis on integrative motifs, riboSNitch and structurally variable sites are orgnizing, which could be glanced at [here](https://github.com/huangwenze/PrismNet_analysis).
+```
+git clone https://github.com/huangwenze/PrismNet_analysis
+```
 
 ## Copyright and License
 This project is free to use for non-commercial purposes - see the [LICENSE](LICENSE) file for details.
