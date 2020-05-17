@@ -14,9 +14,10 @@ bioRxiv preprint: ([https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1]
 
 ### Table of Contents
 - [Getting started](#Getting-started)
+- [Dataset](#contact)
 - [Usage](#usage)
-- [Contact](#contact)
-- [Copyright and License Information](#copyright-and-license-information)
+- [Copyright and License](#copyright-and-license)
+- [Reference](#Reference)
 
 ## Getting started
 
@@ -74,10 +75,10 @@ exp/EXP_NAME/eval.sh TIA1_Hela
 ```
 
 
-### Copyright and License
+## Copyright and License
 This project is free to use for non-commercial purposes - see the [LICENSE](LICENSE) file for details.
 
-### Reference
+## Reference
 
 ```
 @article {Sun2020.05.05.078774,
