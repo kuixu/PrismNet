@@ -2,7 +2,7 @@
 
 This is a [PyTorch](https://pytorch.org/) implementation of our paper:
 ## Predicting dynamic cellular protein-RNA interactions using deep learning and in vivo RNA structure
-Lei Sun*,  Kui Xu*, Wenze Huang*, Yucheng T. Yang, Lei Tang, Tuanlin Xiong, Qiangfeng Cliff Zhang
+Lei Sun*,  Kui Xu*, Wenze Huang*, Yucheng T. Yang*, Lei Tang, Tuanlin Xiong, Qiangfeng Cliff Zhang
 
 *: indicates equal contribution.
 
@@ -14,7 +14,7 @@ bioRxiv preprint: ([https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1]
 
 ### Table of Contents
 - [Getting started](#Getting-started)
-- [Dataset](#contact)
+- [Datasets](#datasets)
 - [Usage](#usage)
 - [Copyright and License](#copyright-and-license)
 - [Reference](#Reference)
@@ -40,9 +40,9 @@ cd PrismNet
 python setup.py install
 ```
 
-## Dataset
+## Datasets
 
-### Prepare the dataset
+### Prepare the datasets
 
 Scripts and pipeline are in preparing, currently, we provide a sample data in HDF5 format in `data` folder.
 
