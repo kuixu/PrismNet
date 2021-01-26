@@ -6,16 +6,15 @@ name=$(basename $work_path)
 p=$1
 d=$2
 
+infer_file=$3
 exp=$name
 
 python -u tools/main.py \
-    --train \
-    --eval \
-    --lr 0.001 \
+    --load_best \
+    --har \
+    --infer_file $infer_file \
     --data_dir data/$d \
     --p_name $p\
     --out_dir $work_path \
     --exp_name $exp\
-    ${@:5}
-    
-    #| tee $work_path/out/log.txt
+    ${@:6}| tee $work_path/out/log.txt

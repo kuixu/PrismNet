@@ -25,7 +25,7 @@ bioRxiv preprint: ([https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1]
 ### Requirements
  
  - Python 3.6
- - PyTorch 1.0.0, with NVIDIA CUDA Support
+ - PyTorch 1.1.0, with NVIDIA CUDA Support
  - pip
 
 ### Installation
@@ -37,41 +37,80 @@ git clone https://github.com/kuixu/PrismNet.git
 Install packages:
 ```bash
 cd PrismNet
-python setup.py install
+pip install requirements.txt
+pip install -e .
 ```
 
 ## Datasets
 
 ### Prepare the datasets
 
-Scripts and pipeline are in preparing, currently, we provide a sample data in HDF5 format in `data` folder.
+Scripts and pipeline are in preparing, currently, we provide 172 samples data in *.tsv format for training and testing PrismNet.
 
 ```
-data
-├── TIA1_Hela.h5
-```
+# Download data
+cd PrismNet/data
+wget http://prismnet.zhanglab.net/data/clip_data.tgz
+tar zxvf clip_data.tgz
 
+# Generate training and validation set for binary classification
+cd PrismNet
+tools/gdata_bin.sh
+```
 
 
 ## Usage
 
-### Training
+### Network Architecture
 
-to train one single protein model from scratch, run
+![prismnet](https://github.com/kuixu/PrismNet/wiki/imgs/prismnet-arch.png)
+
+### Training 
+
+To train one single protein model from scratch, run
 ```
-exp/EXP_NAME/train.sh TIA1_Hela
+exp/EXP_NAME/train.sh pu PrismNet TIA1_Hela clip_data 
 ```
 where you replace `TIA1_Hela` with the name of the data file you want to use, you replace EXP_NAME with a specific name of this experiment. Hyper-parameters could be tuned in `exp/prismnet/train.sh`. For available training options, please take a look at `tools/train.py`.
 
-You can monitor on http://localhost:6006 the training process using tensorboard:
+To monitor the training process, add option `-tfboard` in `exp/prismnet/train.sh`, and view page at http://localhost:6006 using tensorboard:
 ```
-tensorboard --logdir exp/EXP_NAME/out
+tensorboard --logdir exp/EXP_NAME/out/tfb
+```
+
+To train all the protein models, run
+```
+exp/EXP_NAME/train_all.sh
 ```
 
 ### Evaluation
-For evaluation of the models, we provide the script eval.sh. You can run it using
+For evaluation of the models, we provide the script `eval.sh`. You can run it using
 ```
-exp/EXP_NAME/eval.sh TIA1_Hela
+exp/prismnet/eval.sh TIA1_Hela clip_data 
+```
+
+### Inference
+For inference data using the trained models, we provide the script `infer.sh`. You can run it using
+```
+exp/prismnet/infer.sh TIA1_Hela clip_data /path/to/inference_file.txt
+```
+
+### Compute High Attention Regions
+For computing high attention regions using the trained models, we provide the script `har.sh`. You can run it using
+```
+exp/prismnet/har.sh TIA1_Hela clip_data /path/to/inference_file.txt
+```
+
+### Compute Saliency
+For computing saliency using the trained models, we provide the script `saliency.sh`. You can run it using
+```
+exp/prismnet/saliency.sh TIA1_Hela clip_data 
+```
+
+### Plot Saliency Image
+For plotting saliency image using the trained models, we provide the script `saliencyimg.sh`. You can run it using
+```
+exp/prismnet/saliencyimg.sh TIA1_Hela clip_data 
 ```
 
 ### Motif, riboSNitch and structurally variable sites analysis

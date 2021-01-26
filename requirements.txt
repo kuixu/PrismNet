@@ -2,8 +2,8 @@ scipy==1.1.0
 termcolor
 h5py
 scikit-learn>=0.19.1
-torch>=1.0.0
-torchvision
+torch==1.1.0
 tensorboardX
 tqdm>=4.28.1
 matplotlib>=3.0.2
+einops

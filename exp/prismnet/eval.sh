@@ -1,20 +1,18 @@
 #!/bin/bash
 work_path=$(dirname $0)
 name=$(basename $work_path)
-echo `date +%Y%m%d%H%M%S`
+# echo `date +%Y%m%d%H%M%S`
 
-p=${1}
+p=$1
+d=$2
 
 exp=$name
 
-out_dir=$work_path/out/$p/$ss_type
-
-python -u tools/train.py \
-    --datadir data \
-    --out_dir $out_dir \
-    --batch_size 64 \
-    --log_interval 100\
-    --exp_name $exp\
-    --p_name $p\
-    --beta 2 \
+python -u tools/main.py \
+    --load_best \
     --eval \
+    --data_dir data/$d \
+    --p_name $p\
+    --out_dir $work_path \
+    --exp_name $exp\
+    ${@:5}| tee $work_path/out/log.txt

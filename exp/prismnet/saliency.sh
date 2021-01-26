@@ -6,16 +6,14 @@ name=$(basename $work_path)
 p=$1
 d=$2
 
+
 exp=$name
 
 python -u tools/main.py \
-    --train \
-    --eval \
-    --lr 0.001 \
+    --load_best \
+    --saliency \
     --data_dir data/$d \
     --p_name $p\
     --out_dir $work_path \
     --exp_name $exp\
-    ${@:5}
-    
-    #| tee $work_path/out/log.txt
+    ${@:5}| tee $work_path/out/log.txt
