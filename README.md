@@ -90,15 +90,15 @@ exp/prismnet/eval.sh TIA1_Hela clip_data
 ```
 
 ### Inference
-For inference data using the trained models, we provide the script `infer.sh`. You can run it using
+For inference data (the same format as the *.tsv file used in [Datasets](#datasets)) using the trained models, we provide the script `infer.sh`. You can run it using
 ```
-exp/prismnet/infer.sh TIA1_Hela clip_data /path/to/inference_file.txt
+exp/prismnet/infer.sh TIA1_Hela clip_data /path/to/inference_file.tsv
 ```
 
 ### Compute High Attention Regions
 For computing high attention regions using the trained models, we provide the script `har.sh`. You can run it using
 ```
-exp/prismnet/har.sh TIA1_Hela clip_data /path/to/inference_file.txt
+exp/prismnet/har.sh TIA1_Hela clip_data /path/to/inference_file.tsv
 ```
 
 ### Compute Saliency
