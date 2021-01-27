@@ -120,6 +120,14 @@ Scripts of the analysis on integrative motifs, riboSNitch and structurally varia
 git clone https://github.com/huangwenze/PrismNet_analysis
 ```
 
+### Integrative motif 
+
+The integrative motif could be downloaded at [here](http://prismnet.zhanglab.net/data/Total_motifs-matrix-logo.xlsx).
+
+### Dataset and Results Visualization
+
+We also provide a website [http://prismnet.zhanglab.net/](http://prismnet.zhanglab.net/) to visualize the icSHAPE date and the results.
+
 ## Copyright and License
 This project is free to use for non-commercial purposes - see the [LICENSE](LICENSE) file for details.
 
@@ -131,6 +139,14 @@ This project is free to use for non-commercial purposes - see the [LICENSE](LICE
 	author = {Sun, Lei and Xu, Kui and Huang, Wenze and Yang, Yucheng T. and Tang, Lei and Xiong, Tuanlin and Zhang, Qiangfeng Cliff},
 	year = {2020},
 	eprint = {https://www.biorxiv.org/content/early/2020/05/07/2020.05.05.078774.full.pdf},
+	journal = {bioRxiv}
+}
+@article {Sun2020.07.07.192732,
+	title = {In vivo structural characterization of the whole SARS-CoV-2 RNA genome identifies host cell target proteins vulnerable to re-purposed drugs},
+	author = {Sun, Lei and Li, Pan and Ju, Xiaohui and Rao, Jian and Huang, Wenze and Zhang, Shaojun and Xiong, Tuanlin and Xu, Kui and Zhou, Xiaolin and Ren, Lili and Ding, Qiang and Wang, Jianwei and Zhang, Qiangfeng Cliff},
+	year = {2020},
+	doi = {10.1101/2020.07.07.192732},
+	eprint = {https://www.biorxiv.org/content/early/2020/07/08/2020.07.07.192732.full.pdf},
 	journal = {bioRxiv}
 }
 ```
