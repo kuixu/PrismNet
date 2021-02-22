@@ -141,12 +141,11 @@ This project is free to use for non-commercial purposes - see the [LICENSE](LICE
 	eprint = {https://www.biorxiv.org/content/early/2020/05/07/2020.05.05.078774.full.pdf},
 	journal = {bioRxiv}
 }
-@article {Sun2020.07.07.192732,
+@article {Sun2021,
 	title = {In vivo structural characterization of the whole SARS-CoV-2 RNA genome identifies host cell target proteins vulnerable to re-purposed drugs},
 	author = {Sun, Lei and Li, Pan and Ju, Xiaohui and Rao, Jian and Huang, Wenze and Zhang, Shaojun and Xiong, Tuanlin and Xu, Kui and Zhou, Xiaolin and Ren, Lili and Ding, Qiang and Wang, Jianwei and Zhang, Qiangfeng Cliff},
-	year = {2020},
-	doi = {10.1101/2020.07.07.192732},
-	eprint = {https://www.biorxiv.org/content/early/2020/07/08/2020.07.07.192732.full.pdf},
-	journal = {bioRxiv}
+	year = {2021},
+	doi = {https://doi.org/10.1016/j.cell.2021.02.008},
+	journal = {Cell}
 }
 ```
