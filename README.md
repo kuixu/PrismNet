@@ -2,9 +2,11 @@
 
 This is a [PyTorch](https://pytorch.org/) implementation of our paper:
 ## Predicting dynamic cellular protein-RNA interactions using deep learning and in vivo RNA structure
-Lei Sun*,  Kui Xu*, Wenze Huang*, Yucheng T. Yang*, Lei Tang, Tuanlin Xiong, Qiangfeng Cliff Zhang
+Lei Sun*,  Kui Xu*, Wenze Huang*, Yucheng T. Yang*, Pan Li, Lei Tang, Tuanlin Xiong, Qiangfeng Cliff Zhang
 
 *: indicates equal contribution.
+
+Cell Research Version: ([https://www.nature.com/articles/s41422-021-00476-y](https://www.nature.com/articles/s41422-021-00476-y))
 
 bioRxiv preprint: ([https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1](https://www.biorxiv.org/content/10.1101/2020.05.05.078774v1))
 
@@ -134,14 +136,14 @@ This project is free to use for non-commercial purposes - see the [LICENSE](LICE
 ## Reference
 
 ```
-@article {Sun2020.05.05.078774,
+@article {Sun2021cr,
 	title = {Predicting dynamic cellular protein-RNA interactions using deep learning and in vivo RNA structure},
-	author = {Sun, Lei and Xu, Kui and Huang, Wenze and Yang, Yucheng T. and Tang, Lei and Xiong, Tuanlin and Zhang, Qiangfeng Cliff},
-	year = {2020},
-	eprint = {https://www.biorxiv.org/content/early/2020/05/07/2020.05.05.078774.full.pdf},
-	journal = {bioRxiv}
+	author = {Sun, Lei and Xu, Kui and Huang, Wenze and Yang, Yucheng T. and Li, Pan and Tang, Lei and Xiong, Tuanlin and Zhang, Qiangfeng Cliff},
+	year = {2021},
+	doi = {https://doi.org/10.1038/s41422-021-00476-y},
+	journal = {Cell Research}
 }
-@article {Sun2021,
+@article {Sun2021cell,
 	title = {In vivo structural characterization of the whole SARS-CoV-2 RNA genome identifies host cell target proteins vulnerable to re-purposed drugs},
 	author = {Sun, Lei and Li, Pan and Ju, Xiaohui and Rao, Jian and Huang, Wenze and Zhang, Shaojun and Xiong, Tuanlin and Xu, Kui and Zhou, Xiaolin and Ren, Lili and Ding, Qiang and Wang, Jianwei and Zhang, Qiangfeng Cliff},
 	year = {2021},
