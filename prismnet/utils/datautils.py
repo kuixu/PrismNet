@@ -71,12 +71,7 @@ def rescale(vec, thr=0.0):
     
 def decodeDNA(m):
     na=["A","C","G","U"]
-    #cl=['g','b','orange','r']
-    #if type=="AUCG":
-    #na=["A","U","C","G"]
-    #cl=['g','r','b','orange']
     var,inds=np.where(m==1)
-    #print(inds)
     seq=""
     for i in inds:
         seq=seq+na[i]
@@ -130,19 +125,12 @@ def convert_one_hot(sequence, max_length=None):
 
 def convert_cat_one_hot(targets):
     """convert DNA/RNA sequences to a one-hot representation"""
-
-    #one_hot_seq = []
-    #for seq in targets:
-        #seq = seq.upper()
     t_length = len(targets)
     cat_num  = len(np.unique(targets))
-    #import pdb; pdb.set_trace()
     one_hot = np.zeros((t_length, cat_num))
     for i in range(cat_num):
         index = np.where(targets==i)[0]
-
         one_hot[index,i]= 1
-
     return one_hot
 
 def seq_mutate(seq):
@@ -174,12 +162,10 @@ def load_dataset_hdf5(file_path, ss_type='seq'):
             structure = train['inputs'][:,:,:,4:9]
             paired = np.expand_dims(structure[:,:,:,0], axis=3)
 
-            #
             if structure.shape[-1]>3:
                 unpaired = np.expand_dims(np.sum(structure[:,:,:,1:], axis=3), axis=3)
                 seq = np.concatenate([seq, paired, unpaired], axis=3)
             elif structure.shape[-1]==1:
-                #unpaired = np.expand_dims(structure[:,:,:,1], axis=3)
                 seq = np.concatenate([seq, paired], axis=3)
             elif structure.shape[-1]==2:
                 unpaired = np.expand_dims(structure[:,:,:,1], axis=3)
@@ -188,7 +174,6 @@ def load_dataset_hdf5(file_path, ss_type='seq'):
                 unpaired = np.expand_dims(structure[:,:,:,1], axis=3)
                 other = np.expand_dims(structure[:,:,:,2], axis=3)
                 seq = np.concatenate([seq, paired, unpaired, other], axis=3)
-            #seq = np.concatenate([seq, paired, unpaired], axis=3)
         elif ss_type == 'p':
             structure = train['inputs'][:,:,:,4:9]
             paired = np.expand_dims(structure[:,:,:,0], axis=3)
@@ -198,9 +183,6 @@ def load_dataset_hdf5(file_path, ss_type='seq'):
             paired = np.expand_dims(structure[:,:,:,0], axis=3)
             HIME = structure[:,:,:,1:]
             seq = np.concatenate([seq, paired, HIME], axis=3)
-        # N 101 1 5
-        #seq = seq.transpose([0, 1, 3, 2])
-        # N 101 5 1
         train['inputs']  = seq
         return train
 
@@ -217,23 +199,19 @@ def load_dataset_hdf5(file_path, ss_type='seq'):
     # expand dims of targets
     if len(Y_train.shape) == 1:
         Y_train = np.expand_dims(Y_train, axis=1)
-        # Y_valid = np.expand_dims(Y_valid, axis=1)
         Y_test  = np.expand_dims(Y_test, axis=1)
 
     # add another dimension to make a 4d tensor
     X_train = np.expand_dims(X_train, axis=3).transpose([0, 2, 3, 1])
-    # X_valid = np.expand_dims(X_valid, axis=3).transpose([0, 2, 3, 1])
     X_test  = np.expand_dims(X_test,  axis=3).transpose([0, 2, 3, 1])
     
     # dictionary for each dataset
     train = {'inputs': X_train, 'targets': Y_train}
-    # valid = {'inputs': X_valid, 'targets': Y_valid}
     test  = {'inputs': X_test, 'targets': Y_test}
     
 
     # parse secondary structure profiles
     train = prepare_data(train, ss_type)
-    # valid = prepare_data(valid, ss_type)
     test  = prepare_data(test, ss_type)
 
     print("train:",train['inputs'].shape)
@@ -394,7 +372,6 @@ def load_testset_txt_only_seq(filepath, test, return_trans_id=False, seq_length=
     with h5py.File(filepath+"_test.h5", "w") as f:
         dset = f.create_dataset("inputs", data=inputs, compression="gzip")
         dset = f.create_dataset("targets", data=targets, compression="gzip")
-    # np.savez_compressed(filepath+"_test.npz", test=test)
     print("Saved.")
 
     if return_trans_id:
@@ -421,13 +398,11 @@ def load_testset_txt(filepath, use_structure=True, seq_length=101):
     in_ver = 5
     seqs = []
     strs = []
-    # trans_ids = []
     with open(filepath,"r") as f:
         for line in f.readlines():
             line=line.strip('\n').split('\t')
             if len(line[2])!=seq_length:
                 continue
-            # trans_ids.append(line[1])
             seqs.append(line[2])
             if use_structure:
                 strs.append(line[3])
@@ -447,10 +422,8 @@ def load_testset_txt(filepath, use_structure=True, seq_length=101):
     inputs = np.expand_dims(input, axis=3).transpose([0, 2, 3, 1])
     targets = np.ones((in_seq.shape[0],1))
 
-    #targets = np.ones((in_seq.shape[0]+1,1))
     targets[in_seq.shape[0]-1]=0
 
-    #inputs = np.concatenate([inputs, inputs[:1,:,:,:]], axis=0)
     test['inputs']  = inputs
     test['targets'] = targets
     print("Saving into npz.")
@@ -477,35 +450,19 @@ def load_testset_txt_mu(filepath, test, seq_length=101):
             continue
         seqs.append(line[2])
         mut_seq=seq_mutate(line[2])
-        #print(len(mut_seq),len(line[2]))
         seqs.extend(mut_seq)
         if use_pu:
             strs.extend([line[3]] * len(seqs))
-            #import pdb; pdb.set_trace()
     print("file line num:",nf)
     print("mut seq num:",len(seqs))
     in_seq = munge.convert_one_hot(seqs, seq_length)
     in_ver = 5
-    if "7v" in filepath:
-        in_ver = 7
     if use_pu:
         structure = np.zeros((len(seqs), in_ver-4, seq_length))
         for i in range(len(seqs)):
-            icshape = strs[i].strip(',').split(',')
-            #print(icshape)
-            ti = [float(t) for t in icshape]
-            ti = np.array(ti).reshape(1,-1)
-            if in_ver == 5:
-                pu = np.concatenate([ti], axis=0)
-            elif in_ver == 6:
-                pu = np.concatenate([1-ti, ti], axis=0)
-            elif in_ver == 7:
-                pu = str_onehot(ti)
-                pu = np.concatenate([pu, ti], axis=0)
-            #in_str = np.concatenate([ti], axis=0)
-            structure[i]=pu
-        #print("in_seq",in_seq.shape)
-        #print("in_str",structure.shape)
+            struct_list = strs[i].strip(',').split(',')
+            ti = np.array([float(t) for t in struct_list]).reshape(1,-1)
+            structure[i] = np.concatenate([ti], axis=0)
         input = np.concatenate([in_seq, structure], axis=1)
     else:
         input = in_seq
@@ -513,10 +470,7 @@ def load_testset_txt_mu(filepath, test, seq_length=101):
     inputs = np.expand_dims(input, axis=3).transpose([0, 2, 3, 1])
     targets = np.ones((in_seq.shape[0],1))
 
-    #targets = np.ones((in_seq.shape[0]+1,1))
     targets[in_seq.shape[0]-1]=0
-
-    #inputs = np.concatenate([inputs, inputs[:1,:,:,:]], axis=0)
 
     test['inputs'] =inputs
     test['targets'] =targets
@@ -528,29 +482,18 @@ def split_dataset(data, targets, experiment, valid_frac=0.2):
     ind0 = np.where(targets<0.5)[0]
     ind1 = np.where(targets>=0.5)[0]
     
+    n_neg = int(len(ind0)*valid_frac)
+    n_pos = int(len(ind1)*valid_frac)
 
-    # num_seq = len(data)
-    n_pos = int(len(ind0)*valid_frac)
-    n_neg = int(len(ind1)*valid_frac)
-    #num_test  = int(num_valid/2)
+    shuf_neg = np.random.permutation(len(ind0))
+    shuf_pos = np.random.permutation(len(ind1))
 
-    shuf_pos = np.random.permutation(len(ind0))
-    shuf_neg = np.random.permutation(len(ind1))
-
-    X_train = np.concatenate((data[shuf_pos[n_pos:]], data[shuf_neg[n_neg:]]))
-    Y_train = np.concatenate((targets[[shuf_pos[n_pos:]]], targets[[shuf_neg[n_neg:]]]))
+    X_train = np.concatenate((data[ind1[shuf_pos[n_pos:]]], data[ind0[shuf_neg[n_neg:]]]))
+    Y_train = np.concatenate((targets[ind1[shuf_pos[n_pos:]]], targets[ind0[shuf_neg[n_neg:]]]))
     train = (X_train, Y_train)
 
-    # X_valid = data[shuffle[:1]]
-    # Y_valid = targets[[shuffle[:1]]]
-    # valid = (X_valid, Y_valid)
-
-    X_test = np.concatenate((data[shuf_pos[:n_pos]], data[shuf_neg[:n_neg]]))
-    Y_test = np.concatenate((targets[[shuf_pos[:n_pos]]], targets[[shuf_neg[:n_neg]]]))
-
-    # X_test = data[shuf_pos[:num_valid]]
-    # Y_test = targets[[shuffle[:num_valid]]]
+    X_test = np.concatenate((data[ind1[shuf_pos[:n_pos]]], data[ind0[shuf_neg[:n_neg]]]))
+    Y_test = np.concatenate((targets[ind1[shuf_pos[:n_pos]]], targets[ind0[shuf_neg[:n_neg]]]))
     test = (X_test, Y_test)
-
 
     return train, test
