@@ -88,6 +88,7 @@ def compute_saliency(args, model, device, test_loader):
 
     # sgrad = SmoothGrad(model, device=device)
     sgrad = GuidedBackpropSmoothGrad(model, device=device)
+    sal = ""
     for batch_idx, (x0, y0) in enumerate(test_loader):
         X, Y = x0.float().to(device), y0.to(device).float()
         output = model(X)
@@ -96,7 +97,7 @@ def compute_saliency(args, model, device, test_loader):
         guided_saliency = sgrad.get_batch_gradients(X, Y)
         # import pdb; pdb.set_trace()
         N, NS, _, _ = guided_saliency.shape # (N, 101, 1, 5)
-        sal = ""
+        
         for i in range(N):
             inr = batch_idx*args.batch_size + i
             str_sal = datautils.mat2str(np.squeeze(guided_saliency[i]))
