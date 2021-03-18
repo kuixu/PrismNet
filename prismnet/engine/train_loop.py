@@ -78,7 +78,7 @@ def inference(args, model, device, test_loader):
 
 
 def compute_saliency(args, model, device, test_loader):
-    from prismnet.model import SmoothGrad, GuidedBackpropSmoothGrad
+    from prismnet.model import GuidedBackpropSmoothGrad
 
     model.eval()
 
@@ -110,7 +110,7 @@ def compute_saliency(args, model, device, test_loader):
 
 
 def compute_saliency_img(args, model, device, test_loader):
-    from prismnet.model import SmoothGrad, GuidedBackpropSmoothGrad
+    from prismnet.model import GuidedBackpropSmoothGrad
     from prismnet.utils import visualize
 
     def saliency_img(X, mul_saliency, outdir="results"):
@@ -186,7 +186,7 @@ def compute_saliency_img(args, model, device, test_loader):
 
 
 def compute_high_attention_region(args, model, device, test_loader):
-    from prismnet.model import SmoothGrad, GuidedBackpropSmoothGrad
+    from prismnet.model import GuidedBackpropSmoothGrad
 
     identity   = args.p_name+'_'+args.arch+"_"+args.mode
     har_dir = datautils.make_directory(args.out_dir, "out/har")
