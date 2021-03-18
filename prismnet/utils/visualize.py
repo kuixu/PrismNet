@@ -108,15 +108,15 @@ def plot_saliency(X, W, nt_width=100, norm_factor=3, str_null=None, outdir="resu
         str_sal = W[4, plot_index].reshape(1,-1)
         img_str_sal = imresize(str_sal, size=(trace_height, trace_width))
 
-
     # plot    
-    fig = plt.figure(figsize=(10,2))
-    gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[2, 1, 0.5, 1])
+    fig = plt.figure(figsize=(10.1,2))
+    gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[2.5, 1, 0.5, 1])
     cmap_reversed = mpl.cm.get_cmap('jet')
 
     ax = fig.add_subplot(gs[0, 0])
     ax.axis('off')
     ax.imshow(img_seq_sal_logo)
+    plt.text(x=trace_width-400,y=10, s='PrismNet', fontsize=4)
 
     ax = fig.add_subplot(gs[1, 0]) 
     ax.axis('off')
@@ -130,12 +130,12 @@ def plot_saliency(X, W, nt_width=100, norm_factor=3, str_null=None, outdir="resu
         ax = fig.add_subplot(gs[3, 0]) 
         ax.axis('off')
         ax.imshow(img_str_sal, cmap=cmap_reversed)
-        ax.plot(line_str_raw, '-', color='r', linewidth=1)
+        ax.plot(line_str_raw, '-', color='r', linewidth=1, scalex=False, scaley=False)
         
         # plot balck line to hide the -1(NULL structure score)
         x = (np.zeros(trace_width) + (1+0.01))*trace_height  +1.5
-        ax.plot(x, '-', color='white', linewidth=1.2)
-
+        ax.plot(x, '-', color='white', linewidth=1.2, scalex=False, scaley=False)
+    
     plt.subplots_adjust(wspace=0, hspace=0)
     
     # save figure
