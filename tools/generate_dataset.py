@@ -11,35 +11,27 @@ np.random.seed(100)
 
 from prismnet.utils import datautils
 
-def read_csv(path, header):
+def read_csv(path):
     # load sequences
-    df = pd.read_csv(path, sep='\t', header=header)
+    df = pd.read_csv(path, sep='\t', header=None)
+    df = df.loc[df[0]!="Type"]
 
-    if header is None or 'Type' not in df.keys():
-        Type  = 0
-        loc   = 1
-        Seq   = 2
-        Str   = 3
-        Score = 4
-        label = 5
-    else:
-        Type  = 'Type'
-        loc   = 'name'
-        Seq   = 'Seq'
-        Str   = 'icshape'
-        Score = 'Score'
-        label = 'label'
+    Type  = 0
+    loc   = 1
+    Seq   = 2
+    Str   = 3
+    Score = 4
+    label = 5
 
     rnac_set  = df[Type].to_numpy()
     sequences = df[Seq].to_numpy()
     structs  = df[Str].to_numpy()
-    targets   = df[Score].to_numpy().reshape(-1,1)
+    targets   = df[Score].to_numpy().astype(np.float32).reshape(-1,1)
     return sequences, structs, targets
 
 max_length = 101
 only_pos   = False
 binary     = True
-header     = 0
 
 name       = sys.argv[1]
 is_bin     = sys.argv[2]
@@ -51,7 +43,7 @@ print(name)
 
 
 outfile = name+'.h5'
-sequences, structs, targets = read_csv(os.path.join(data_path, name+'.tsv'), header)
+sequences, structs, targets = read_csv(os.path.join(data_path, name+'.tsv'))
 
 # combine inpute data
 one_hot = datautils.convert_one_hot(sequences, max_length)

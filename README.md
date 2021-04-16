@@ -39,7 +39,7 @@ git clone https://github.com/kuixu/PrismNet.git
 Install packages:
 ```bash
 cd PrismNet
-pip install requirements.txt
+pip install -r requirements.txt
 pip install -e .
 ```
 

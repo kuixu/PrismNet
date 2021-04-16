@@ -7,3 +7,4 @@ tensorboardX
 tqdm>=4.28.1
 matplotlib>=3.0.2
 einops
+pandas
