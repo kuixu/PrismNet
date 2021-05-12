@@ -65,7 +65,7 @@ elif is_bin=="1":
 
 
 # split dataset into train, cross-validation, and test set
-train, test = datautils.split_dataset(data, targets, rnac_set, valid_frac=0.2)
+train, test = datautils.split_dataset(data, targets, valid_frac=0.2)
 
 target_data_type = np.int32 if is_bin=="1" else np.float32
 # save dataset
