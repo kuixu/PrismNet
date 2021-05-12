@@ -477,7 +477,7 @@ def load_testset_txt_mu(filepath, test, seq_length=101):
     return test
 
 
-def split_dataset(data, targets, experiment, valid_frac=0.2):
+def split_dataset(data, targets, valid_frac=0.2):
     
     ind0 = np.where(targets<0.5)[0]
     ind1 = np.where(targets>=0.5)[0]
