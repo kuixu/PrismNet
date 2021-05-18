@@ -419,7 +419,7 @@ def load_testset_txt(filepath, use_structure=True, seq_length=101):
     else:
         input = in_seq
 
-    inputs = np.expand_dims(input, axis=3).transpose([0, 2, 3, 1])
+    inputs = np.expand_dims(input, axis=3).transpose([0, 3, 2, 1])
     targets = np.ones((in_seq.shape[0],1))
 
     targets[in_seq.shape[0]-1]=0
