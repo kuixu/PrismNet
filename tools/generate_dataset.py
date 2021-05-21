@@ -49,11 +49,11 @@ sequences, structs, targets = read_csv(os.path.join(data_path, name+'.tsv'))
 one_hot = datautils.convert_one_hot(sequences, max_length)
 structure = np.zeros((len(structs), in_ver-4, max_length))
 for i in range(len(structs)):
-    structs = structs[i].split(',')
-    ti = [float(t) for t in structs]
+    struct = structs[i].split(',')
+    ti = [float(t) for t in struct]
     ti = np.array(ti).reshape(1,-1)
-    pu = np.concatenate([ti], axis=0)
-    structure[i] = pu
+    structure[i] = np.concatenate([ti], axis=0)
+
 data = np.concatenate([one_hot, structure], axis=1)
 
 # preprare targets
