@@ -3,6 +3,9 @@ work_path=$(dirname $0)
 name=$(basename $work_path)
 da=clip_data
 
+if [ ! -d $work_path/out ];then
+    mkdir $work_path/out
+fi
 # N threads according to your GPU
 SEND_THREAD_NUM=2
 
