@@ -5,6 +5,7 @@ da=clip_data
 
 if [ ! -d $work_path/out ];then
     mkdir $work_path/out
+    mkdir $work_path/out/log
 fi
 # N threads according to your GPU
 SEND_THREAD_NUM=2
