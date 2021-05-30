@@ -126,6 +126,27 @@ git clone https://github.com/huangwenze/PrismNet_analysis
 
 The integrative motif could be downloaded at [here](http://prismnet.zhanglab.net/data/Total_motifs-matrix-logo.xlsx).
 
+
+### Half Life Analysis (Example)
+
+#### Download half life data
+```
+cd PrismNet/data
+wget http://prismnet.zhanglab.net/data/halflife_data.tgz
+tar zxvf halflife_data.tgz
+```
+
+#### Requirements
+```
+pip install xgboost==1.3.0rc1 matplotlib scipy scikit-learn
+```
+
+#### Run Example
+
+```
+exp/logistic_reg/run.sh
+```
+
 ### Dataset and Results Visualization
 
 We also provide a website [http://prismnet.zhanglab.net/](http://prismnet.zhanglab.net/) to visualize the icSHAPE date and the results.
