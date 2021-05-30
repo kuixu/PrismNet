@@ -138,7 +138,7 @@ tar zxvf halflife_data.tgz
 
 #### Requirements
 ```
-pip install xgboost==1.3.0rc1 matplotlib scipy scikit-learn
+pip install xgboost==1.3.0rc1 matplotlib scipy scikit-learn termplotlib
 ```
 
 #### Run Example
