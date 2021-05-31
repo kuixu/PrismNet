@@ -1,7 +1,7 @@
 #!/bin/bash
 work_path=$(dirname $0)
 
-p=HEK293_RBP_HL_bind_matrix_CDS
+p=HEK293_RBP_HL_bind_matrix_total
 p2=$p
 la=10
 
