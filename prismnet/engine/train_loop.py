@@ -77,12 +77,11 @@ def inference(args, model, device, test_loader):
     return p_all
 
 
-def compute_saliency(args, model, device, test_loader):
+def compute_saliency(args, model, device, test_loader, identity):
     from prismnet.model import GuidedBackpropSmoothGrad
 
     model.eval()
 
-    identity   = args.p_name+'_'+args.arch+"_"+args.mode
     saliency_dir = datautils.make_directory(args.out_dir, "out/saliency")
     saliency_path = os.path.join(saliency_dir, identity+'.sal')
 
@@ -109,7 +108,7 @@ def compute_saliency(args, model, device, test_loader):
     print(saliency_path)
 
 
-def compute_saliency_img(args, model, device, test_loader):
+def compute_saliency_img(args, model, device, test_loader, identity):
     from prismnet.model import GuidedBackpropSmoothGrad
     from prismnet.utils import visualize
 
@@ -149,7 +148,6 @@ def compute_saliency_img(args, model, device, test_loader):
 
     prefix_n = len(str(len(test_loader.dataset)))
     datautils.make_directory(args.out_dir, "out/imgs/")
-    identity   = args.p_name+'_'+args.arch+"_"+args.mode
     imgs_dir = datautils.make_directory(args.out_dir, "out/imgs/"+identity)
     imgs_path = imgs_dir+'/{:0'+str(prefix_n)+'d}_{:.3f}.pdf'
     saliency_path = os.path.join(imgs_dir, 'all.sal')
@@ -166,8 +164,7 @@ def compute_saliency_img(args, model, device, test_loader):
         mul_saliency[:,:,:,:4] =  guided_saliency[:,:,:,:4] * X[:,:,:,:4]
         N, NS, _, _ = guided_saliency.shape # (N, 101, 1, 5)
         sal = ""
-        # for i in tqdm(range(N)):
-        for i in tqdm(range(20)):
+        for i in tqdm(range(N)):
             inr = batch_idx*args.batch_size + i
             str_sal = datautils.mat2str(np.squeeze(guided_saliency[i]))
             sal += "{}\t{:.6f}\t{}\n".format(inr, p_np[i], str_sal)
@@ -185,10 +182,9 @@ def compute_saliency_img(args, model, device, test_loader):
 
 
 
-def compute_high_attention_region(args, model, device, test_loader):
+def compute_high_attention_region(args, model, device, test_loader, identity):
     from prismnet.model import GuidedBackpropSmoothGrad
 
-    identity   = args.p_name+'_'+args.arch+"_"+args.mode
     har_dir = datautils.make_directory(args.out_dir, "out/har")
     har_path = os.path.join(har_dir, identity+'.har')
 

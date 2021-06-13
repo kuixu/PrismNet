@@ -162,7 +162,7 @@ def main():
     if args.load_best:
         filename = model_path.format("best")
         print("Loading model: {}".format(filename))
-        model.load_state_dict(torch.load(filename))
+        model.load_state_dict(torch.load(filename,map_location='cpu'))
  
     model = model.to(device)
     criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(args.pos_weight))
@@ -222,21 +222,21 @@ def main():
         save_evals(args.out_dir, identity, args.p_name, p_all, y_all, met)
 
     if args.infer and os.path.exists(args.infer_file):
-        infer_loader  = torch.utils.data.DataLoader(SeqicSHAPE(args.infer_file, is_infer=True), \
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(args.infer_file, is_infer=True), \
             batch_size=args.batch_size, shuffle=False, **kwargs)
 
-        p_all = inference(args, model, device, infer_loader)
-        filename = identity+"_"+ os.path.basename(args.infer_file).replace(".txt","") 
-        save_infers(args.out_dir, filename, p_all)
+        p_all = inference(args, model, device, test_loader)
+        identity = identity+"_"+ os.path.basename(args.infer_file).replace(".txt","") 
+        save_infers(args.out_dir, identity, p_all)
 
     if args.saliency:
-        compute_saliency(args, model, device, test_loader)
+        compute_saliency(args, model, device, test_loader, identity)
 
     if args.saliency_img:
-        compute_saliency_img(args, model, device, test_loader)
+        compute_saliency_img(args, model, device, test_loader, identity)
     
     if args.har:
-        compute_high_attention_region(args, model, device, test_loader)
+        compute_high_attention_region(args, model, device, test_loader, identity)
 
 
     
