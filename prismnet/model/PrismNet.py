@@ -152,7 +152,7 @@ class PrismNet_large(nn.Module):
         x = self.conv(input)
         x = F.dropout(x, 0.1, training=self.training)
         z = self.se(x)
-        x = self.res2d(z*a)
+        x = self.res2d(x*z)
         x = F.dropout(x, 0.5, training=self.training)
         x = self.avgpool(x)
         x = x.view(x.shape[0], x.shape[1], x.shape[2])
