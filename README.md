@@ -52,7 +52,7 @@ Scripts and pipeline are in preparing, currently, we provide 172 samples data in
 ```
 # Download data
 cd PrismNet/data
-wget http://prismnet.zhanglab.net/data/clip_data.tgz
+wget https://zhanglabnet.oss-cn-beijing.aliyuncs.com/prismnet/data/clip_data.tgz
 tar zxvf clip_data.tgz
 
 # Generate training and validation set for binary classification
