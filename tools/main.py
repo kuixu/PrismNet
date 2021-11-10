@@ -145,13 +145,12 @@ def main():
     device = torch.device("cuda" if use_cuda else "cpu")
     kwargs = {'num_workers': args.workers, 'pin_memory': True} if use_cuda else {}
     
-    train_loader = torch.utils.data.DataLoader(SeqicSHAPE(data_path), \
-        batch_size=args.batch_size, shuffle=True,  **kwargs)
-
-    test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(data_path, is_test=True), \
-        batch_size=args.batch_size*8, shuffle=False, **kwargs)
-    print("Train set:", len(train_loader.dataset))
-    print("Test  set:", len(test_loader.dataset))
+    #train_loader = torch.utils.data.DataLoader(SeqicSHAPE(data_path), \
+    #    batch_size=args.batch_size, shuffle=True,  **kwargs)
+    #test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(data_path, is_test=True), \
+    #    batch_size=args.batch_size*8, shuffle=False, **kwargs)
+    #print("Train set:", len(train_loader.dataset))
+    #print("Test  set:", len(test_loader.dataset))
 
 
     print("Network Arch:", args.arch)
@@ -168,6 +167,15 @@ def main():
     criterion = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(args.pos_weight))
 
     if args.train:
+
+        train_loader = torch.utils.data.DataLoader(SeqicSHAPE(data_path), \
+            batch_size=args.batch_size, shuffle=True,  **kwargs)
+        
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(data_path, is_test=True), \
+            batch_size=args.batch_size*8, shuffle=False, **kwargs)
+        print("Train set:", len(train_loader.dataset))
+        print("Test  set:", len(test_loader.dataset))
+
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.weight_decay)
         scheduler = GradualWarmupScheduler(
             optimizer, multiplier=8, total_epoch=float(args.nepochs), after_scheduler=None)
@@ -217,6 +225,11 @@ def main():
     
     
     if args.eval:
+
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(data_path, is_test=True), \
+            batch_size=args.batch_size*8, shuffle=False, **kwargs)
+        print("Test  set:", len(test_loader.dataset))
+
         met, y_all, p_all = validate(args, model, device, test_loader, criterion)
         print("> eval {} auc: {:.4f} acc: {:.4f}".format(args.p_name, met.auc, met.acc))
         save_evals(args.out_dir, identity, args.p_name, p_all, y_all, met)
@@ -229,13 +242,19 @@ def main():
         identity = identity+"_"+ os.path.basename(args.infer_file).replace(".txt","") 
         save_infers(args.out_dir, identity, p_all)
 
-    if args.saliency:
+    if args.saliency and os.path.exists(args.infer_file):
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(args.infer_file, is_infer=True), \
+            batch_size=args.batch_size, shuffle=False, **kwargs)
         compute_saliency(args, model, device, test_loader, identity)
 
-    if args.saliency_img:
+    if args.saliency_img and os.path.exists(args.infer_file):
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(args.infer_file, is_infer=True), \
+            batch_size=args.batch_size, shuffle=False, **kwargs)
         compute_saliency_img(args, model, device, test_loader, identity)
     
-    if args.har:
+    if args.har and os.path.exists(args.infer_file):
+        test_loader  = torch.utils.data.DataLoader(SeqicSHAPE(args.infer_file, is_infer=True), \
+            batch_size=args.batch_size, shuffle=False, **kwargs)
         compute_high_attention_region(args, model, device, test_loader, identity)
 
 
