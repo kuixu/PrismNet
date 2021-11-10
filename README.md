@@ -94,32 +94,32 @@ exp/prismnet/eval.sh TIA1_Hela clip_data
 ### Inference
 For inference data (the same format as the *.tsv file used in [Datasets](#datasets)) using the trained models, we provide the script `infer.sh`. You can run it using
 ```
-exp/prismnet/infer.sh TIA1_Hela clip_data /path/to/inference_file.tsv
+exp/prismnet/infer.sh TIA1_Hela /path/to/inference_file.tsv
 ```
 
 ### Compute High Attention Regions
 For computing high attention regions using the trained models, we provide the script `har.sh`. You can run it using
 ```
-exp/prismnet/har.sh TIA1_Hela clip_data /path/to/inference_file.tsv
+exp/prismnet/har.sh TIA1_Hela /path/to/inference_file.tsv
 ```
 
 ### Compute Saliency
 For computing saliency using the trained models, we provide the script `saliency.sh`. You can run it using
 ```
-exp/prismnet/saliency.sh TIA1_Hela clip_data 
+exp/prismnet/saliency.sh TIA1_Hela /path/to/inference_file.tsv
 ```
 
 ### Plot Saliency Image
 For plotting saliency image using the trained models, we provide the script `saliencyimg.sh`. You can run it using
 ```
-exp/prismnet/saliencyimg.sh TIA1_Hela clip_data 
+exp/prismnet/saliencyimg.sh TIA1_Hela /path/to/inference_file.tsv 
 ```
 
-### Motif, riboSNitch and structurally variable sites analysis
-
-Scripts of the analysis on integrative motifs, riboSNitch and structurally variable sites are orgnizing, which could be glanced at [here](https://github.com/huangwenze/PrismNet_analysis).
+### Motif Construction
+For the construction and analysis of integrative motifs, Users can use the scripts in `motif_construct/` 
 ```
-git clone https://github.com/huangwenze/PrismNet_analysis
+perl saliency_motif.pl infile.txt sal outfile
+Rscript motif_sig.R outfile_motif_summary.txt outfile_motif_sig.txt
 ```
 
 ### Integrative motif 
