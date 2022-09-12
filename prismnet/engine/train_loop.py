@@ -184,7 +184,7 @@ def compute_saliency_img(args, model, device, test_loader, identity):
 
 def compute_high_attention_region(args, model, device, test_loader, identity):
     from prismnet.model import GuidedBackpropSmoothGrad
-
+    model.eval()
     har_dir = datautils.make_directory(args.out_dir, "out/har")
     har_path = os.path.join(har_dir, identity+'.har')
 
