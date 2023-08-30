@@ -92,7 +92,7 @@ def compute_saliency(args, model, device, test_loader, identity):
         X, Y = x0.float().to(device), y0.to(device).float()
         output = model(X)
         prob = torch.sigmoid(output)
-        p_np = prob.to(device='cpu').detach().numpy().squeeze()
+        p_np = prob.to(device='cpu').detach().numpy().squeeze(-1)
         guided_saliency = sgrad.get_batch_gradients(X, Y)
         # import pdb; pdb.set_trace()
         N, NS, _, _ = guided_saliency.shape # (N, 101, 1, 5)
