@@ -132,7 +132,7 @@ The integrative motif could be downloaded at [here](http://prismnet.zhanglab.net
 #### Download half life data
 ```
 cd PrismNet/data
-wget http://prismnet.zhanglab.net/data/halflife_data.tgz
+wget https://zhanglabnet.oss-cn-beijing.aliyuncs.com/prismnet/data/halflife_data.tgz
 tar zxvf halflife_data.tgz
 ```
 
